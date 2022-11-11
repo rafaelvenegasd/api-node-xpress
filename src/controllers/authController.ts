@@ -1,16 +1,32 @@
 import { NextFunction, Request, Response } from "express";
-//TODO: add the logic
+import { authLoginUseCase } from "../useCases/authLogin/authLoginUseCase";
+import { authSignupUseCase } from "../useCases/authSignup/authSignupUseCase";
+
 export const authController = {
   login: async (req: Request, res: Response, next: NextFunction) => {
     try {
-      res.json("Here you will login");
+      const { email, password } = req.body;
+      const data = await authLoginUseCase({ email, password });
+      res.json({ data });
     } catch (error) {
       next(error);
     }
   },
   signup: async (req: Request, res: Response, next: NextFunction) => {
     try {
-      res.json("Here you will signup");
+      const { email, password, name } = req.body;
+      const data = await authSignupUseCase({ email, password, name });
+      switch (data.type) {
+        case "incomplete_info":
+          res.status(400).json({ data });
+          break;
+        case "already_exist":
+          res.status(409).json({ data });
+          break;
+        default:
+          res.status(201).json({ data });
+          break;
+      }
     } catch (error) {
       next(error);
     }
