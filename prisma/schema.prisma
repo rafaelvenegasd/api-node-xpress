@@ -6,3 +6,30 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id       Int     @id @default(autoincrement())
+  name     String? @db.VarChar(255)
+  email    String  @unique @db.VarChar
+  password String  @db.VarChar(255)
+}
+
+model Drug {
+  id          Int          @id @default(autoincrement())
+  name        String       @db.VarChar(255)
+  approved    Boolean
+  minDose     Int          @map("min_dose")
+  maxDose     Int          @map("max_dose")
+  availableAt DateTime     @map("available_at")
+  vacinnation Vaccination?
+}
+
+model Vaccination {
+  id     Int      @id @default(autoincrement())
+  name   String   @db.VarChar(255)
+  drugId Int      @unique @map("drug_id")
+  dose   Int
+  date   DateTime
+
+  drug Drug @relation(fields: [drugId], references: [id])
+}
