@@ -37,9 +37,13 @@ export const authLoginUseCase = async (
     };
   }
 
-  const token = jwt.sign({ user_id: dbUser.id }, "secret", {
-    expiresIn: process.env.JWT_EXPIRATION_TIME || "1H",
-  });
+  const token = jwt.sign(
+    { user_id: dbUser.id },
+    process.env.JWT_SECRET || "secret",
+    {
+      expiresIn: process.env.JWT_EXPIRATION_TIME || "1H",
+    }
+  );
 
   const { password, ...user } = dbUser;
 
