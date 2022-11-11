@@ -7,6 +7,7 @@ export const authController = {
     try {
       const { email, password } = req.body;
       const data = await authLoginUseCase({ email, password });
+
       res.json({ data });
     } catch (error) {
       next(error);
@@ -17,10 +18,10 @@ export const authController = {
       const { email, password, name } = req.body;
       const data = await authSignupUseCase({ email, password, name });
       switch (data.type) {
-        case "incomplete_info":
+        case "incomplete_info" || "not_found":
           res.status(400).json({ data });
           break;
-        case "already_exist":
+        case "not_matched_pass":
           res.status(409).json({ data });
           break;
         default:
