@@ -34,8 +34,5 @@ CREATE TABLE "Vaccination" (
 -- CreateIndex
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
--- CreateIndex
-CREATE UNIQUE INDEX "Vaccination_drug_id_key" ON "Vaccination"("drug_id");
-
 -- AddForeignKey
 ALTER TABLE "Vaccination" ADD CONSTRAINT "Vaccination_drug_id_fkey" FOREIGN KEY ("drug_id") REFERENCES "Drug"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

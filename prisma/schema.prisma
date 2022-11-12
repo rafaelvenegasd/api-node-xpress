@@ -15,19 +15,19 @@ model User {
 }
 
 model Drug {
-  id          Int          @id @default(autoincrement())
-  name        String       @db.VarChar(255)
+  id          Int           @id @default(autoincrement())
+  name        String        @db.VarChar(255)
   approved    Boolean
-  minDose     Int          @map("min_dose")
-  maxDose     Int          @map("max_dose")
-  availableAt DateTime     @map("available_at")
-  vacinnation Vaccination?
+  minDose     Int           @map("min_dose")
+  maxDose     Int           @map("max_dose")
+  availableAt DateTime      @map("available_at")
+  vacinnation Vaccination[]
 }
 
 model Vaccination {
   id     Int      @id @default(autoincrement())
   name   String   @db.VarChar(255)
-  drugId Int      @unique @map("drug_id")
+  drugId Int      @map("drug_id")
   dose   Int
   date   DateTime
 
