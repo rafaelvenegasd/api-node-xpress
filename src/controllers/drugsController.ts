@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
-import { drugsCreateUseCase } from "../useCases/drugsCreate/drugsCreateUseCase";
-import { drugsGetUseCase } from "../useCases/drugsGet/drugsGetUseCase";
+import { drugsCreateUseCase } from "../useCases/drugs/drugsCreate/drugsCreateUseCase";
+import { drugsGetUseCase } from "../useCases/drugs/drugsGet/drugsGetUseCase";
+import { drugsUpdateUseCase } from "../useCases/drugs/drugsUpdate/drugsUpdateUseCase";
 
 export const drugsController = {
   create: async (req: Request, res: Response, next: NextFunction) => {
@@ -46,7 +47,26 @@ export const drugsController = {
   },
   update: async (req: Request, res: Response, next: NextFunction) => {
     try {
-      res.json("Here you will update the drugs");
+      const { name, approved, minDose, maxDose, availableAt } = req.body;
+      const { drugId } = req.params;
+      const data = await drugsUpdateUseCase({
+        id: Number(drugId),
+        data: {
+          name,
+          approved,
+          minDose,
+          maxDose,
+          availableAt,
+        },
+      });
+      switch (data.type) {
+        case "does_not_exist":
+          res.status(400).json({ data });
+          break;
+        default:
+          res.status(201).json({ data });
+          break;
+      }
     } catch (error) {
       next(error);
     }

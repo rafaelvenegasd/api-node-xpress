@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
-import { authLoginUseCase } from "../useCases/authLogin/authLoginUseCase";
-import { authSignupUseCase } from "../useCases/authSignup/authSignupUseCase";
+import { authLoginUseCase } from "../useCases/auth/authLogin/authLoginUseCase";
+import { authSignupUseCase } from "../useCases/auth/authSignup/authSignupUseCase";
 
 export const authController = {
   login: async (req: Request, res: Response, next: NextFunction) => {

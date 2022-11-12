@@ -6,5 +6,5 @@ export const drugsRouter = Router();
 
 drugsRouter.post("/", authMiddleware, drugsController.create);
 drugsRouter.get("/", authMiddleware, drugsController.get);
-drugsRouter.put("/", authMiddleware, drugsController.update);
-drugsRouter.delete("/", authMiddleware, drugsController.delete);
+drugsRouter.put("/:drugId", authMiddleware, drugsController.update);
+drugsRouter.delete("/:drugId", authMiddleware, drugsController.delete);
