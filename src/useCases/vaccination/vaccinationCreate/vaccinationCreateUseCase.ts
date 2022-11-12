@@ -6,7 +6,7 @@ const prisma = new PrismaClient();
 export const vaccinationCreateUseCase = async (
   options: VaccinationCreateOptionsInterface
 ) => {
-  const dbVaccination = await prisma.vaccination.findFirst({
+  const vaccinationDB = await prisma.vaccination.findFirst({
     where: { name: options.name },
   });
 
@@ -17,32 +17,32 @@ export const vaccinationCreateUseCase = async (
     };
   }
 
-  if (dbVaccination) {
+  if (vaccinationDB) {
     return {
       type: "already_exists",
       message: `Vaccination already exists`,
     };
   }
 
-  const dbDrug = await prisma.drug.findUnique({
+  const drugDB = await prisma.drug.findUnique({
     where: { id: options.drugId },
   });
 
-  if (!dbDrug) {
+  if (!drugDB) {
     return {
-      type: "drug_not_found",
-      message: `Drug not found`,
+      type: "drugId_not_valid",
+      message: `DrugId is not valid, please check it`,
     };
   }
 
-  if (options.dose > dbDrug.maxDose || options.dose < dbDrug.minDose) {
+  if (options.dose > drugDB.maxDose || options.dose < drugDB.minDose) {
     return {
       type: "drug_dose_not_allowed",
       message: `Drug dosis is not allowed`,
     };
   }
 
-  if (new Date(options.date) > dbDrug.availableAt) {
+  if (new Date(options.date) > drugDB.availableAt) {
     return {
       type: "date_not_allowed",
       message: `The vaccination is not allowed in this date`,
