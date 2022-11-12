@@ -4,7 +4,11 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
+const authMiddleware = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): void => {
   const authHeader = req.header("Authorization");
 
   if (!authHeader) {
@@ -14,14 +18,13 @@ const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
   const token = authHeader.split("Bearer ")[1];
 
   if (!token) {
-    return res.status(403).json("A token is required for authentication");
+    throw new Error("A token is required for authentication");
   }
 
   try {
-    const decoded = verify(token, process.env.JWT_SECRET || "");
-    req.body = decoded;
+    verify(token, process.env.JWT_SECRET || "");
   } catch (err) {
-    return res.status(401).send("Invalid Token");
+    throw new Error("Invalid Token");
   }
   return next();
 };
