@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { vaccinationCreateUseCase } from "../useCases/vaccination/vaccinationCreate/vaccinationCreateUseCase";
 import { vaccinationDeleteUseCase } from "../useCases/vaccination/vaccinationDelete/vaccinationDeleteUseCase";
+import { vaccinationGetUseCase } from "../useCases/vaccination/vaccinationGet/vaccinationGetUseCase";
 
 export const vaccinationController = {
   create: async (req: Request, res: Response, next: NextFunction) => {
@@ -29,7 +30,16 @@ export const vaccinationController = {
   },
   get: async (req: Request, res: Response, next: NextFunction) => {
     try {
-      res.json("Here you will get the vaccinations");
+      const data = await vaccinationGetUseCase({
+        select: {
+          id: true,
+          name: true,
+          drugId: true,
+          dose: true,
+          date: true,
+        },
+      });
+      res.status(201).json({ data });
     } catch (error) {
       next(error);
     }
