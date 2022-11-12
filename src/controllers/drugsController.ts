@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { drugsCreateUseCase } from "../useCases/drugs/drugsCreate/drugsCreateUseCase";
+import { drugsDeleteUseCase } from "../useCases/drugs/drugsDelete/drugsDeleteUseCase";
 import { drugsGetUseCase } from "../useCases/drugs/drugsGet/drugsGetUseCase";
 import { drugsUpdateUseCase } from "../useCases/drugs/drugsUpdate/drugsUpdateUseCase";
 
@@ -33,6 +34,7 @@ export const drugsController = {
     try {
       const data = await drugsGetUseCase({
         select: {
+          id: true,
           name: true,
           approved: true,
           minDose: true,
@@ -73,7 +75,18 @@ export const drugsController = {
   },
   delete: async (req: Request, res: Response, next: NextFunction) => {
     try {
-      res.json("Here you will delete the drugs");
+      const { drugId } = req.params;
+      const data = await drugsDeleteUseCase({
+        id: Number(drugId),
+      });
+      switch (data.type) {
+        case "does_not_exist":
+          res.status(400).json({ data });
+          break;
+        default:
+          res.status(201).json({ data });
+          break;
+      }
     } catch (error) {
       next(error);
     }

@@ -1,10 +1,10 @@
-import { DrugsUpdateOptionsInterface } from "./drugsUpdateOptionsInterface";
+import { DrugsDeleteOptionsInterface } from "./drugsDeleteOptionsInterface";
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-export const drugsUpdateUseCase = async (
-  options: DrugsUpdateOptionsInterface
+export const drugsDeleteUseCase = async (
+  options: DrugsDeleteOptionsInterface
 ) => {
   const drugDB = await prisma.drug.findUnique({
     where: { id: options.id },
@@ -17,15 +17,12 @@ export const drugsUpdateUseCase = async (
     };
   }
 
-  const updatedDrug = await prisma.drug.update({
+  const deletedDrug = await prisma.drug.delete({
     where: { id: options.id },
-    data: {
-      ...options.data,
-    },
   });
 
   return {
-    message: `Drug updated successfully`,
-    drug: { ...updatedDrug },
+    message: `Drug deleted successfully`,
+    drug: { ...deletedDrug },
   };
 };
