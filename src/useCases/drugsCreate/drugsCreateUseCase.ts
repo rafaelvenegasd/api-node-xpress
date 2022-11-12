@@ -11,7 +11,7 @@ export const drugsCreateUseCase = async (
   });
 
   if (
-    !options.approved ||
+    options.approved === null ||
     !options.availableAt ||
     !options.maxDose ||
     !options.minDose ||

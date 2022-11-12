@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { drugsCreateUseCase } from "../useCases/drugsCreate/drugsCreateUseCase";
+import { drugsGetUseCase } from "../useCases/drugsGet/drugsGetUseCase";
 
 export const drugsController = {
   create: async (req: Request, res: Response, next: NextFunction) => {
@@ -29,7 +30,16 @@ export const drugsController = {
   },
   get: async (req: Request, res: Response, next: NextFunction) => {
     try {
-      res.json("Here you will get the drugs");
+      const data = await drugsGetUseCase({
+        select: {
+          name: true,
+          approved: true,
+          minDose: true,
+          maxDose: true,
+          availableAt: true,
+        },
+      });
+      res.status(201).json({ data });
     } catch (error) {
       next(error);
     }
