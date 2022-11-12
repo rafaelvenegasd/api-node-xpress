@@ -6,5 +6,13 @@ export const vaccinationRouter = Router();
 
 vaccinationRouter.post("/", authMiddleware, vaccinationController.create);
 vaccinationRouter.get("/", authMiddleware, vaccinationController.get);
-vaccinationRouter.put("/", authMiddleware, vaccinationController.update);
-vaccinationRouter.delete("/", authMiddleware, vaccinationController.delete);
+vaccinationRouter.put(
+  "/:vaccinationId",
+  authMiddleware,
+  vaccinationController.update
+);
+vaccinationRouter.delete(
+  "/:vaccinationId",
+  authMiddleware,
+  vaccinationController.delete
+);

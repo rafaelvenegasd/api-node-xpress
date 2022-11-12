@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { vaccinationCreateUseCase } from "../useCases/vaccination/vaccinationCreate/vaccinationCreateUseCase";
+import { vaccinationDeleteUseCase } from "../useCases/vaccination/vaccinationDelete/vaccinationDeleteUseCase";
 
 export const vaccinationController = {
   create: async (req: Request, res: Response, next: NextFunction) => {
@@ -42,7 +43,18 @@ export const vaccinationController = {
   },
   delete: async (req: Request, res: Response, next: NextFunction) => {
     try {
-      res.json("Here you will delete the vaccinations");
+      const { vaccinationId } = req.params;
+      const data = await vaccinationDeleteUseCase({
+        id: Number(vaccinationId),
+      });
+      switch (data.type) {
+        case "does_not_exist":
+          res.status(400).json({ data });
+          break;
+        default:
+          res.status(201).json({ data });
+          break;
+      }
     } catch (error) {
       next(error);
     }
