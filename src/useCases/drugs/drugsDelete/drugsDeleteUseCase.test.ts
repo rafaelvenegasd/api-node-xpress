@@ -17,7 +17,7 @@ describe("drugsDeleteUseCase test", () => {
     });
   });
 
-  test("should return error type 'does_not_exist' when the drugId is not found", async () => {
+  test("should delete successfully", async () => {
     const prisma: any = {
       drug: {
         findUnique: jest.fn(() => ({})),

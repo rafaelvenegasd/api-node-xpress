@@ -33,7 +33,7 @@ export const drugsController = {
   },
   get: async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const data = await drugsGetUseCase({
+      const data = await drugsGetUseCase(prisma, {
         select: {
           id: true,
           name: true,
