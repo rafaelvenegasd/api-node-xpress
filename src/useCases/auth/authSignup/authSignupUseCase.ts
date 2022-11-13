@@ -1,6 +1,6 @@
 import { AuthSignupUseCaseOptionsInterface } from "./authSignupUseCaseOptionsInterface";
 import { PrismaClient } from "@prisma/client";
-import bcrypt from "bcrypt";
+const bcrypt = require("bcrypt");
 
 export const authSignupUseCase = async (
   prisma: PrismaClient,

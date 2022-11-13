@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { verify } from "jsonwebtoken";
-import dotenv from "dotenv";
+const dotenv = require("dotenv").config();
 
 dotenv.config();
 

@@ -1,8 +1,8 @@
 import { AuthLoginUseCaseOptionsInterface } from "./authLoginUseCaseOptionsInterface";
-import jwt from "jsonwebtoken";
-import dotenv from "dotenv";
 import { PrismaClient } from "@prisma/client";
-import bcrypt from "bcrypt";
+const jwt = require("jsonwebtoken");
+const dotenv = require("dotenv");
+const bcrypt = require("bcrypt");
 
 dotenv.config();
 
