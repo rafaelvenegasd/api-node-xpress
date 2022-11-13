@@ -32,7 +32,7 @@ export const vaccinationController = {
   },
   get: async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const data = await vaccinationGetUseCase({
+      const data = await vaccinationGetUseCase(prisma, {
         select: {
           id: true,
           name: true,

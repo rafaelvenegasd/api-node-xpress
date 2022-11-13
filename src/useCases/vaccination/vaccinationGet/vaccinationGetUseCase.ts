@@ -1,9 +1,8 @@
 import { VaccinationGetOptionsInterface } from "./vaccinationGetOptionsInterface";
 import { PrismaClient } from "@prisma/client";
 
-const prisma = new PrismaClient();
-
 export const vaccinationGetUseCase = async (
+  prisma: PrismaClient,
   options: VaccinationGetOptionsInterface
 ) => {
   const vaccinations = await prisma.vaccination.findMany({
