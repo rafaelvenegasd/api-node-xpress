@@ -2,11 +2,13 @@ import { NextFunction, Request, Response } from "express";
 import { authLoginUseCase } from "../useCases/auth/authLogin/authLoginUseCase";
 import { authSignupUseCase } from "../useCases/auth/authSignup/authSignupUseCase";
 
+import { prisma } from "../services/prisma";
+
 export const authController = {
   login: async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { email, password } = req.body;
-      const data = await authLoginUseCase({ email, password });
+      const data = await authLoginUseCase(prisma, { email, password });
       switch (data.type) {
         case "incomplete_info" || "not_found":
           res.status(400).json({ data });

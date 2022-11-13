@@ -5,9 +5,9 @@ import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcrypt";
 
 dotenv.config();
-const prisma = new PrismaClient();
 
 export const authLoginUseCase = async (
+  prisma: PrismaClient,
   options: AuthLoginUseCaseOptionsInterface
 ) => {
   if (!options.email || !options.password) {
