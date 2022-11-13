@@ -74,7 +74,7 @@ export const vaccinationController = {
   delete: async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { vaccinationId } = req.params;
-      const data = await vaccinationDeleteUseCase({
+      const data = await vaccinationDeleteUseCase(prisma, {
         id: Number(vaccinationId),
       });
       switch (data.type) {

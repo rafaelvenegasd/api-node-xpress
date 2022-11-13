@@ -1,9 +1,8 @@
 import { VaccinationDeleteOptionsInterface } from "./vaccinationDeleteOptionsInterface";
 import { PrismaClient } from "@prisma/client";
 
-const prisma = new PrismaClient();
-
 export const vaccinationDeleteUseCase = async (
+  prisma: PrismaClient,
   options: VaccinationDeleteOptionsInterface
 ) => {
   const vaccinationDB = await prisma.vaccination.findUnique({
