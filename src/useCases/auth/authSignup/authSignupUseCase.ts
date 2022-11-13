@@ -3,10 +3,9 @@ import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcrypt";
 
 export const authSignupUseCase = async (
+  prisma: PrismaClient,
   options: AuthSignupUseCaseOptionsInterface
 ) => {
-  const prisma = new PrismaClient();
-
   if (!options.email || !options.password) {
     return {
       type: "incomplete_info",

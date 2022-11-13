@@ -27,7 +27,7 @@ export const authController = {
   signup: async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { email, password, name } = req.body;
-      const data = await authSignupUseCase({ email, password, name });
+      const data = await authSignupUseCase(prisma, { email, password, name });
       switch (data.type) {
         case "incomplete_info":
           res.status(400).json({ data });

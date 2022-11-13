@@ -55,6 +55,7 @@ describe("authLoginUseCase test", () => {
       message: `Invalid credentials`,
     });
   });
+
   test("should return success message", async () => {
     const options = {
       email: "rvenegas@test.com",
@@ -70,6 +71,9 @@ describe("authLoginUseCase test", () => {
     jest.spyOn(bcrypt, "compare").mockImplementationOnce(() => true);
 
     const result = await authLoginUseCase(prisma, options);
-    expect(result).toHaveProperty("message", `Login success`);
+
+    expect(result).toMatchObject({
+      message: `Login success`,
+    });
   });
 });
