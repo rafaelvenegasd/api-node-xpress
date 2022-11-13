@@ -1,9 +1,8 @@
 import { VaccinationUpdateOptionsInterface } from "./vaccinationUpdateOptionsInterface";
 import { PrismaClient } from "@prisma/client";
 
-const prisma = new PrismaClient();
-
 export const vaccinationUpdateUseCase = async (
+  prisma: PrismaClient,
   options: VaccinationUpdateOptionsInterface
 ) => {
   const vaccinationDB = await prisma.vaccination.findUnique({

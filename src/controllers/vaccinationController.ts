@@ -50,7 +50,7 @@ export const vaccinationController = {
     try {
       const { name, drugId, dose, date } = req.body;
       const { vaccinationId } = req.params;
-      const data = await vaccinationUpdateUseCase({
+      const data = await vaccinationUpdateUseCase(prisma, {
         id: Number(vaccinationId),
         data: {
           name,
