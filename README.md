@@ -12,16 +12,16 @@ Create an .env based in .env.example file and set environment variables.
 npm install
 ```
 
+## RUN MIGRATIONS
+
+```bash
+npx prisma migrate dev
+```
+
 ## RUN IN DEV
 
 ```bash
 npm run dev
-```
-
-## BUILD
-
-```bash
-npm run build
 ```
 
 ## USAGE
@@ -33,12 +33,22 @@ Use the postman collection saved in postman folder, in the main root.
 - Create a user in 'Auth' folder
 - Login (to get the Auth Token)
 - Set Token to 'Drugs' & 'Vaccinations' folders
-- Set the params to each request to test
+- Set the params to each request to verify the use cases
 
 ### TEST (JEST)
 
+Run all the tests
+
 ```bash
 npm run test
+```
+
+## BUILD
+
+You also can build to transpile TS files to JS.
+
+```bash
+npm run build
 ```
 
 ## Contributing
