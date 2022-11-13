@@ -18,6 +18,12 @@ npm install
 npm run dev
 ```
 
+## BUILD
+
+```bash
+npm run build
+```
+
 ## USAGE
 
 ### POSTMAN
