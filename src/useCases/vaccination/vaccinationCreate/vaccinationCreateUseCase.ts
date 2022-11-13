@@ -1,21 +1,20 @@
 import { VaccinationCreateOptionsInterface } from "./vaccinationCreateOptionsInterface";
 import { PrismaClient } from "@prisma/client";
 
-const prisma = new PrismaClient();
-
 export const vaccinationCreateUseCase = async (
+  prisma: PrismaClient,
   options: VaccinationCreateOptionsInterface
 ) => {
-  const vaccinationDB = await prisma.vaccination.findFirst({
-    where: { name: options.name },
-  });
-
   if (!options.name || !options.drugId || !options.dose || !options.date) {
     return {
       type: "incomplete",
       message: `All fields are required`,
     };
   }
+
+  const vaccinationDB = await prisma.vaccination.findFirst({
+    where: { name: options.name },
+  });
 
   if (vaccinationDB) {
     return {

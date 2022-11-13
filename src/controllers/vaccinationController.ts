@@ -3,12 +3,13 @@ import { vaccinationCreateUseCase } from "../useCases/vaccination/vaccinationCre
 import { vaccinationDeleteUseCase } from "../useCases/vaccination/vaccinationDelete/vaccinationDeleteUseCase";
 import { vaccinationGetUseCase } from "../useCases/vaccination/vaccinationGet/vaccinationGetUseCase";
 import { vaccinationUpdateUseCase } from "../useCases/vaccination/vaccinationUpdate/vaccinationUpdateUseCase";
+import { prisma } from "../services/prisma";
 
 export const vaccinationController = {
   create: async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { name, drugId, dose, date } = req.body;
-      const data = await vaccinationCreateUseCase({
+      const data = await vaccinationCreateUseCase(prisma, {
         name,
         drugId,
         dose,
