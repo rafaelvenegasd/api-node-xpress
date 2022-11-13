@@ -1,9 +1,8 @@
 import { DrugsDeleteOptionsInterface } from "./drugsDeleteOptionsInterface";
 import { PrismaClient } from "@prisma/client";
 
-const prisma = new PrismaClient();
-
 export const drugsDeleteUseCase = async (
+  prisma: PrismaClient,
   options: DrugsDeleteOptionsInterface
 ) => {
   const drugDB = await prisma.drug.findUnique({

@@ -77,7 +77,7 @@ export const drugsController = {
   delete: async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { drugId } = req.params;
-      const data = await drugsDeleteUseCase({
+      const data = await drugsDeleteUseCase(prisma, {
         id: Number(drugId),
       });
       switch (data.type) {
