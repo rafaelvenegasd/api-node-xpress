@@ -1,9 +1,8 @@
 import { DrugsUpdateOptionsInterface } from "./drugsUpdateOptionsInterface";
 import { PrismaClient } from "@prisma/client";
 
-const prisma = new PrismaClient();
-
 export const drugsUpdateUseCase = async (
+  prisma: PrismaClient,
   options: DrugsUpdateOptionsInterface
 ) => {
   const drugDB = await prisma.drug.findUnique({

@@ -52,7 +52,7 @@ export const drugsController = {
     try {
       const { name, approved, minDose, maxDose, availableAt } = req.body;
       const { drugId } = req.params;
-      const data = await drugsUpdateUseCase({
+      const data = await drugsUpdateUseCase(prisma, {
         id: Number(drugId),
         data: {
           name,
