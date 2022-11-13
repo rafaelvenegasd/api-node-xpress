@@ -1,15 +1,10 @@
 import { DrugsCreateOptionsInterface } from "./drugsCreateOptionsInterface";
 import { PrismaClient } from "@prisma/client";
 
-const prisma = new PrismaClient();
-
 export const drugsCreateUseCase = async (
+  prisma: PrismaClient,
   options: DrugsCreateOptionsInterface
 ) => {
-  const dbDrug = await prisma.drug.findFirst({
-    where: { name: options.name },
-  });
-
   if (
     options.approved === null ||
     !options.availableAt ||
@@ -22,6 +17,10 @@ export const drugsCreateUseCase = async (
       message: `All fields are required`,
     };
   }
+
+  const dbDrug = await prisma.drug.findFirst({
+    where: { name: options.name },
+  });
 
   if (dbDrug) {
     return {

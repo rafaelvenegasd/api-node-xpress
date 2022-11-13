@@ -3,12 +3,13 @@ import { drugsCreateUseCase } from "../useCases/drugs/drugsCreate/drugsCreateUse
 import { drugsDeleteUseCase } from "../useCases/drugs/drugsDelete/drugsDeleteUseCase";
 import { drugsGetUseCase } from "../useCases/drugs/drugsGet/drugsGetUseCase";
 import { drugsUpdateUseCase } from "../useCases/drugs/drugsUpdate/drugsUpdateUseCase";
+import { prisma } from "../services/prisma";
 
 export const drugsController = {
   create: async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { name, approved, minDose, maxDose, availableAt } = req.body;
-      const data = await drugsCreateUseCase({
+      const data = await drugsCreateUseCase(prisma, {
         name,
         approved,
         minDose,
